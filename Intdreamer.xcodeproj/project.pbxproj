@@ -15,6 +15,12 @@
 		4465937F2AA7777600F9117F /* SleepPhaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4465937E2AA7777600F9117F /* SleepPhaseView.swift */; };
 		446593812AA9D15000F9117F /* InfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446593802AA9D15000F9117F /* InfoVC.swift */; };
 		446593832AA9DB4800F9117F /* CustomLableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446593822AA9DB4800F9117F /* CustomLableView.swift */; };
+		446593852AA9E49300F9117F /* DiaryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446593842AA9E49300F9117F /* DiaryVC.swift */; };
+		446593892AA9E6FE00F9117F /* DiaryViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446593882AA9E6FE00F9117F /* DiaryViewViewModel.swift */; };
+		4465938E2AA9ED8E00F9117F /* Interpretation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4465938C2AA9ED8E00F9117F /* Interpretation.xcdatamodeld */; };
+		446593912AA9EE3700F9117F /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446593902AA9EE3700F9117F /* DatabaseManager.swift */; };
+		446593932AA9F21800F9117F /* InterpretationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446593922AA9F21800F9117F /* InterpretationModel.swift */; };
+		44E95DF12AAA069700C14BAF /* DiaryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E95DF02AAA069700C14BAF /* DiaryTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +34,12 @@
 		4465937E2AA7777600F9117F /* SleepPhaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepPhaseView.swift; sourceTree = "<group>"; };
 		446593802AA9D15000F9117F /* InfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoVC.swift; sourceTree = "<group>"; };
 		446593822AA9DB4800F9117F /* CustomLableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLableView.swift; sourceTree = "<group>"; };
+		446593842AA9E49300F9117F /* DiaryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryVC.swift; sourceTree = "<group>"; };
+		446593882AA9E6FE00F9117F /* DiaryViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewViewModel.swift; sourceTree = "<group>"; };
+		4465938D2AA9ED8E00F9117F /* Interpretation.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Interpretation.xcdatamodel; sourceTree = "<group>"; };
+		446593902AA9EE3700F9117F /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		446593922AA9F21800F9117F /* InterpretationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpretationModel.swift; sourceTree = "<group>"; };
+		44E95DF02AAA069700C14BAF /* DiaryTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +72,7 @@
 		446593642AA7591600F9117F /* Intdreamer */ = {
 			isa = PBXGroup;
 			children = (
+				4465938F2AA9EE2300F9117F /* Managers */,
 				4465937C2AA7773600F9117F /* Models */,
 				4465937B2AA7772F00F9117F /* Views */,
 				4465937A2AA7772200F9117F /* ViewModels */,
@@ -75,6 +88,7 @@
 			children = (
 				446593692AA7591600F9117F /* MainVC.swift */,
 				446593802AA9D15000F9117F /* InfoVC.swift */,
+				446593842AA9E49300F9117F /* DiaryVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -82,6 +96,7 @@
 		4465937A2AA7772200F9117F /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				446593882AA9E6FE00F9117F /* DiaryViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -91,6 +106,7 @@
 			children = (
 				4465937E2AA7777600F9117F /* SleepPhaseView.swift */,
 				446593822AA9DB4800F9117F /* CustomLableView.swift */,
+				44E95DF02AAA069700C14BAF /* DiaryTableCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -98,6 +114,8 @@
 		4465937C2AA7773600F9117F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4465938C2AA9ED8E00F9117F /* Interpretation.xcdatamodeld */,
+				446593922AA9F21800F9117F /* InterpretationModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -111,6 +129,14 @@
 				446593702AA7591800F9117F /* LaunchScreen.storyboard */,
 			);
 			path = Other;
+			sourceTree = "<group>";
+		};
+		4465938F2AA9EE2300F9117F /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				446593902AA9EE3700F9117F /* DatabaseManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,10 +209,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44E95DF12AAA069700C14BAF /* DiaryTableCell.swift in Sources */,
 				4465937F2AA7777600F9117F /* SleepPhaseView.swift in Sources */,
 				4465936A2AA7591600F9117F /* MainVC.swift in Sources */,
+				446593912AA9EE3700F9117F /* DatabaseManager.swift in Sources */,
+				446593932AA9F21800F9117F /* InterpretationModel.swift in Sources */,
 				446593662AA7591600F9117F /* AppDelegate.swift in Sources */,
+				446593892AA9E6FE00F9117F /* DiaryViewViewModel.swift in Sources */,
 				446593682AA7591600F9117F /* SceneDelegate.swift in Sources */,
+				446593852AA9E49300F9117F /* DiaryVC.swift in Sources */,
+				4465938E2AA9ED8E00F9117F /* Interpretation.xcdatamodeld in Sources */,
 				446593832AA9DB4800F9117F /* CustomLableView.swift in Sources */,
 				446593812AA9D15000F9117F /* InfoVC.swift in Sources */,
 			);
@@ -396,6 +428,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4465938C2AA9ED8E00F9117F /* Interpretation.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4465938D2AA9ED8E00F9117F /* Interpretation.xcdatamodel */,
+			);
+			currentVersion = 4465938D2AA9ED8E00F9117F /* Interpretation.xcdatamodel */;
+			path = Interpretation.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4465935A2AA7591600F9117F /* Project object */;
 }

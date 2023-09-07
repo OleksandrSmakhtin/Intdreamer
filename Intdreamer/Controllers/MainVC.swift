@@ -46,6 +46,7 @@ class MainVC: UIViewController {
         btn.tintColor = .white
         btn.backgroundColor = .black
         btn.layer.cornerRadius = 15
+        btn.addTarget(nil, action: #selector(didPressDiaryBtn), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -89,6 +90,12 @@ class MainVC: UIViewController {
     }()
     
     //MARK: - Actions
+    @objc private func didPressDiaryBtn() {
+        let vc  = DiaryVC()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @objc private func didPressInfoBtn() {
         let vc  = InfoVC()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)

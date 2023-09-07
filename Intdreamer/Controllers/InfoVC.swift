@@ -38,6 +38,8 @@ class InfoVC: UIViewController {
         addSubviews()
         // apply constraints
         applyConstraints()
+        
+        
     }
     
     //MARK: - Add subviews
