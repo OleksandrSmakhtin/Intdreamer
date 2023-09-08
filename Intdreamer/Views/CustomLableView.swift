@@ -30,6 +30,8 @@ class CustomLableView: UIView {
         lbl.text = "Based on your neutral morning feeling, it is possible that the emotions experienced in your dream were not particularly intense. This could suggest that the themes and events in your dream may not have had a significant impact on your overall mood upon waking. It is important to note that dreams can vary in emotional intensity and may not always directly correlate with our waking emotions. In analyzing the dream based on the artifacts you provided, it is difficult to pinpoint the exact interpretation without more specific details. However, it is possible that the dream signifies a sense of neutrality or contentment in your waking life, as opposed to an underlying stress or concern. It could be a reflection of a balanced and stable mindset, where your"
         lbl.textColor = .white.withAlphaComponent(0.7)
         lbl.font = UIFont.systemFont(ofSize: 20)
+        lbl.adjustsFontSizeToFitWidth = true
+        //lbl.minimumScaleFactor = 0.5
         lbl.numberOfLines = 0
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
@@ -96,7 +98,7 @@ class CustomLableView: UIView {
     
     
     //MARK: - Set data
-    public func setData(for description: String, and date: String) {
+    public func setData(for description: String, and date: String = "") {
         descriptionLbl.text = description
         dateLbl.text = date
     }

@@ -4,4 +4,9 @@
         <attribute name="date" optional="YES" attributeType="String"/>
         <attribute name="text" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="SleepPhase" representedClassName="SleepPhase" syncable="YES" codeGenerationType="class">
+        <attribute name="asleep" optional="YES" attributeType="String"/>
+        <attribute name="awake" optional="YES" attributeType="String"/>
+        <attribute name="hours" optional="YES" attributeType="String"/>
+    </entity>
 </model>

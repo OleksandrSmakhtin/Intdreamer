@@ -6,8 +6,14 @@
 //
 
 import UIKit
+import CoreData
+import Combine
 
 class MainVC: UIViewController {
+    
+    //MARK: - View Model
+    private var viewModel = MainViewViewModel()
+    private var subscriptions: Set<AnyCancellable> = []
 
     //MARK: - UI Objects
     private let sleepPhaseView = SleepPhaseView()
@@ -26,6 +32,7 @@ class MainVC: UIViewController {
         btn.layer.cornerRadius = 20
         btn.layer.borderWidth = 1
         btn.layer.borderColor = UIColor.black.cgColor
+        btn.addTarget(nil, action: #selector(didPressPhaseBtn), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -90,6 +97,12 @@ class MainVC: UIViewController {
     }()
     
     //MARK: - Actions
+    @objc private func didPressPhaseBtn() {
+        let vc  = PhaseVC()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @objc private func didPressDiaryBtn() {
         let vc  = DiaryVC()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
@@ -113,6 +126,21 @@ class MainVC: UIViewController {
         addSubviews()
         // apply constraints
         applyConstraints()
+        // bind
+        bindViews()
+    }
+    
+    //MARK: - viewWillAppear
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.getSleepPhase()
+    }
+    
+    //MARK: - Bind views
+    private func bindViews() {
+        viewModel.$sleepPhase.sink { [weak self] sleepPhase in
+            self?.sleepPhaseView.configure(with: sleepPhase)
+        }.store(in: &subscriptions)
     }
     
     //MARK: - Add subviews

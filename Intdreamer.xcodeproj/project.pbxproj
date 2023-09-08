@@ -17,10 +17,15 @@
 		446593832AA9DB4800F9117F /* CustomLableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446593822AA9DB4800F9117F /* CustomLableView.swift */; };
 		446593852AA9E49300F9117F /* DiaryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446593842AA9E49300F9117F /* DiaryVC.swift */; };
 		446593892AA9E6FE00F9117F /* DiaryViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446593882AA9E6FE00F9117F /* DiaryViewViewModel.swift */; };
-		4465938E2AA9ED8E00F9117F /* Interpretation.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4465938C2AA9ED8E00F9117F /* Interpretation.xcdatamodeld */; };
+		4465938E2AA9ED8E00F9117F /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4465938C2AA9ED8E00F9117F /* CoreDataModel.xcdatamodeld */; };
 		446593912AA9EE3700F9117F /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446593902AA9EE3700F9117F /* DatabaseManager.swift */; };
 		446593932AA9F21800F9117F /* InterpretationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446593922AA9F21800F9117F /* InterpretationModel.swift */; };
 		44E95DF12AAA069700C14BAF /* DiaryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E95DF02AAA069700C14BAF /* DiaryTableCell.swift */; };
+		44E95DF32AAA110600C14BAF /* PhaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E95DF22AAA110600C14BAF /* PhaseVC.swift */; };
+		44E95DF52AAA198100C14BAF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E95DF42AAA198100C14BAF /* Constants.swift */; };
+		44E95DF72AAA1DF700C14BAF /* PhaseViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E95DF62AAA1DF700C14BAF /* PhaseViewViewModel.swift */; };
+		44E95DF92AAB3EFD00C14BAF /* HoursPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E95DF82AAB3EFD00C14BAF /* HoursPicker.swift */; };
+		44E95DFB2AAB716200C14BAF /* MainViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E95DFA2AAB716200C14BAF /* MainViewViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +45,11 @@
 		446593902AA9EE3700F9117F /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		446593922AA9F21800F9117F /* InterpretationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpretationModel.swift; sourceTree = "<group>"; };
 		44E95DF02AAA069700C14BAF /* DiaryTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryTableCell.swift; sourceTree = "<group>"; };
+		44E95DF22AAA110600C14BAF /* PhaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhaseVC.swift; sourceTree = "<group>"; };
+		44E95DF42AAA198100C14BAF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		44E95DF62AAA1DF700C14BAF /* PhaseViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhaseViewViewModel.swift; sourceTree = "<group>"; };
+		44E95DF82AAB3EFD00C14BAF /* HoursPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursPicker.swift; sourceTree = "<group>"; };
+		44E95DFA2AAB716200C14BAF /* MainViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +99,7 @@
 				446593692AA7591600F9117F /* MainVC.swift */,
 				446593802AA9D15000F9117F /* InfoVC.swift */,
 				446593842AA9E49300F9117F /* DiaryVC.swift */,
+				44E95DF22AAA110600C14BAF /* PhaseVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -97,6 +108,8 @@
 			isa = PBXGroup;
 			children = (
 				446593882AA9E6FE00F9117F /* DiaryViewViewModel.swift */,
+				44E95DF62AAA1DF700C14BAF /* PhaseViewViewModel.swift */,
+				44E95DFA2AAB716200C14BAF /* MainViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -107,6 +120,7 @@
 				4465937E2AA7777600F9117F /* SleepPhaseView.swift */,
 				446593822AA9DB4800F9117F /* CustomLableView.swift */,
 				44E95DF02AAA069700C14BAF /* DiaryTableCell.swift */,
+				44E95DF82AAB3EFD00C14BAF /* HoursPicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -114,7 +128,7 @@
 		4465937C2AA7773600F9117F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4465938C2AA9ED8E00F9117F /* Interpretation.xcdatamodeld */,
+				4465938C2AA9ED8E00F9117F /* CoreDataModel.xcdatamodeld */,
 				446593922AA9F21800F9117F /* InterpretationModel.swift */,
 			);
 			path = Models;
@@ -127,6 +141,7 @@
 				446593672AA7591600F9117F /* SceneDelegate.swift */,
 				4465936E2AA7591800F9117F /* Assets.xcassets */,
 				446593702AA7591800F9117F /* LaunchScreen.storyboard */,
+				44E95DF42AAA198100C14BAF /* Constants.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -209,7 +224,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44E95DF32AAA110600C14BAF /* PhaseVC.swift in Sources */,
 				44E95DF12AAA069700C14BAF /* DiaryTableCell.swift in Sources */,
+				44E95DFB2AAB716200C14BAF /* MainViewViewModel.swift in Sources */,
 				4465937F2AA7777600F9117F /* SleepPhaseView.swift in Sources */,
 				4465936A2AA7591600F9117F /* MainVC.swift in Sources */,
 				446593912AA9EE3700F9117F /* DatabaseManager.swift in Sources */,
@@ -218,8 +235,11 @@
 				446593892AA9E6FE00F9117F /* DiaryViewViewModel.swift in Sources */,
 				446593682AA7591600F9117F /* SceneDelegate.swift in Sources */,
 				446593852AA9E49300F9117F /* DiaryVC.swift in Sources */,
-				4465938E2AA9ED8E00F9117F /* Interpretation.xcdatamodeld in Sources */,
+				4465938E2AA9ED8E00F9117F /* CoreDataModel.xcdatamodeld in Sources */,
+				44E95DF92AAB3EFD00C14BAF /* HoursPicker.swift in Sources */,
+				44E95DF52AAA198100C14BAF /* Constants.swift in Sources */,
 				446593832AA9DB4800F9117F /* CustomLableView.swift in Sources */,
+				44E95DF72AAA1DF700C14BAF /* PhaseViewViewModel.swift in Sources */,
 				446593812AA9D15000F9117F /* InfoVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -430,13 +450,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		4465938C2AA9ED8E00F9117F /* Interpretation.xcdatamodeld */ = {
+		4465938C2AA9ED8E00F9117F /* CoreDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				4465938D2AA9ED8E00F9117F /* Interpretation.xcdatamodel */,
 			);
 			currentVersion = 4465938D2AA9ED8E00F9117F /* Interpretation.xcdatamodel */;
-			path = Interpretation.xcdatamodeld;
+			path = CoreDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
