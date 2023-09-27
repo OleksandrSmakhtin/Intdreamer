@@ -33,29 +33,20 @@ class DatabaseManager {
     }
     
     // add
-    func addData(data: InterpretationModel) {
-//        return Future<Void, Error> { promise in
-//            let newObject = Interpretation(context: self.context)
-//            newObject.text = data.description
-//            newObject.date = data.date
-//
-//            do {
-//                try self.context.save()
-//                promise(.success(()))
-//            } catch {
-//                promise(.failure(error))
-//            }
-//        }
-//        .eraseToAnyPublisher()
-        let newObject = Interpretation(context: self.context)
-        newObject.text = data.description
-        newObject.date = data.date
-        do {
-            try context.save()
-            print("Successfully saved Item to CoreData")
-        } catch {
-            print("Failed to add Item to CoreData due to: \(error.localizedDescription)")
-        }
+    func saveInrepretationsData(data: InterpretationModel) -> AnyPublisher<Bool, Error> {
+        return Future<Bool,Error> { promise in
+            let newObject = Interpretation(context: self.context)
+            newObject.text = data.description
+            newObject.date = data.date
+            do {
+                try self.context.save()
+                print("Successfully saved Item to CoreData")
+                promise(.success(true))
+            } catch {
+                print("Failed to add Item to CoreData due to: \(error.localizedDescription)")
+                promise(.failure(error))
+            }
+        }.eraseToAnyPublisher()
     }
     
     //MARK: - Sleep Phase

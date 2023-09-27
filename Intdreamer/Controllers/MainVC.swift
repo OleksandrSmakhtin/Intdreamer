@@ -21,17 +21,16 @@ class MainVC: UIViewController {
     private let recommendedLbl: UILabel = {
         let lbl = UILabel()
         lbl.text = "Recommended sleep time:"
-        lbl.textColor = .black
+        lbl.textColor = .white
+        lbl.font = UIFont(name: "Marker Felt", size: 20)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
     
     private let phaseCalculateBtn: UIButton = {
         let btn = UIButton(type: .system)
-        btn.backgroundColor = .black.withAlphaComponent(0.2)
-        btn.layer.cornerRadius = 20
-        btn.layer.borderWidth = 1
-        btn.layer.borderColor = UIColor.black.cgColor
+        btn.setImage(UIImage(named: "PhaseCalculator"), for: .normal)
+        btn.imageView?.contentMode = .scaleAspectFit
         btn.addTarget(nil, action: #selector(didPressPhaseBtn), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
@@ -39,20 +38,16 @@ class MainVC: UIViewController {
     
     private let interpreterBtn: UIButton = {
         let btn = UIButton(type: .system)
-        btn.backgroundColor = .black.withAlphaComponent(0.2)
-        btn.layer.cornerRadius = 20
-        btn.layer.borderWidth = 1
-        btn.layer.borderColor = UIColor.black.cgColor
+        btn.setImage(UIImage(named: "DreamInterpreter"), for: .normal)
+        btn.imageView?.contentMode = .scaleAspectFit
+        btn.addTarget(nil, action: #selector(didPressInterpreterBtn), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
     
     private let diaryBtn: UIButton = {
         let btn = UIButton(type: .system)
-        btn.setTitle("Go to diary", for: .normal)
-        btn.tintColor = .white
-        btn.backgroundColor = .black
-        btn.layer.cornerRadius = 15
+        btn.setImage(UIImage(named: "GoToDiary"), for: .normal)
         btn.addTarget(nil, action: #selector(didPressDiaryBtn), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
@@ -60,13 +55,11 @@ class MainVC: UIViewController {
     
     private let lastDiaryText: UITextView = {
         let view = UITextView()
-        view.text = "Based on your neutral morning feeling, it is possible that the emotions experienced in your dream were not particularly intense. This could suggest that the themes and events in your dream may not have had a significant impact on your overall mood upon waking. It is important to note that dreams can vary in emotional intensity and may not always directly correlate with our waking emotions. In analyzing the dream based on the artifacts you provided, it is difficult to pinpoint the exact interpretation without more specific details. However, it is possible that the dream signifies a sense of neutrality or contentment in your waking life, as opposed to an underlying stress or concern. It could be a reflection of a balanced and stable mindset, where your"
-        view.textColor = .white.withAlphaComponent(0.7)
-        view.font = UIFont.systemFont(ofSize: 15)
-        view.backgroundColor = .black.withAlphaComponent(0.2)
-        view.layer.cornerRadius = 17
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.black.cgColor
+        view.textColor = .white
+        view.font = UIFont(name: "Optima", size: 15)
+        view.backgroundColor = UIColor(named: "tintColor")!.withAlphaComponent(0.5)
+        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.borderWidth = 0.5
         view.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -74,8 +67,9 @@ class MainVC: UIViewController {
     
     private let lastDateLbl: UILabel = {
         let lbl = UILabel()
-        lbl.text = "05/09/2023"
+        //lbl.text = "05/09/2023"
         lbl.textColor = .black.withAlphaComponent(0.8)
+        lbl.font = UIFont(name: "Marker Felt", size: 20)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
@@ -83,7 +77,8 @@ class MainVC: UIViewController {
     private let inerpretationLbl: UILabel = {
         let lbl = UILabel()
         lbl.text = "Your latest interpretation:"
-        lbl.textColor = .black
+        lbl.textColor = UIColor(named: "tintColor")
+        lbl.font = UIFont(name: "Marker Felt", size: 22)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
@@ -97,21 +92,28 @@ class MainVC: UIViewController {
     }()
     
     //MARK: - Actions
+    @objc private func didPressInterpreterBtn() {
+        let vc  = InterpreterVC()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @objc private func didPressPhaseBtn() {
         let vc  = PhaseVC()
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc private func didPressDiaryBtn() {
         let vc  = DiaryVC()
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc private func didPressDailyBtn() {
+        let vc  = DailyVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc private func didPressInfoBtn() {
         let vc  = InfoVC()
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -134,12 +136,42 @@ class MainVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.getSleepPhase()
+        viewModel.getInterpretations()
+        viewModel.checkDaily()
+        viewModel.checkOnboarding()
     }
     
     //MARK: - Bind views
     private func bindViews() {
+        // sleep phase
         viewModel.$sleepPhase.sink { [weak self] sleepPhase in
             self?.sleepPhaseView.configure(with: sleepPhase)
+        }.store(in: &subscriptions)
+        // last diary
+        viewModel.$lastDiary.sink { [weak self] lastDiary in
+            guard let last = lastDiary else {
+                self?.lastDiaryText.text = ""
+                self?.lastDateLbl.text = "--/--/--"
+                return
+            }
+            self?.lastDiaryText.text = last.text
+            self?.lastDateLbl.text = last.date
+        }.store(in: &subscriptions)
+        // daily
+        viewModel.$isDailyBoxOpened.sink { [weak self] state in
+            self?.navigationItem.rightBarButtonItem?.isEnabled = !state
+        }.store(in: &subscriptions)
+        // onboarding
+        viewModel.$isOnboarded.sink { [weak self] status in
+            if !status {
+                let vc = OnboardingVC()
+                self?.navigationController?.pushViewController(vc, animated: false)
+            }
+        }.store(in: &subscriptions)
+        // error
+        viewModel.$error.sink { error in
+            guard let error = error else { return }
+            print(error)
         }.store(in: &subscriptions)
     }
     
@@ -165,8 +197,22 @@ class MainVC: UIViewController {
             backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor)
         ]
         
+        let sleepPhaseViewConstraints = [
+            sleepPhaseView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            sleepPhaseView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            sleepPhaseView.heightAnchor.constraint(equalToConstant: 130),
+            sleepPhaseView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
+        ]
+        
+        let recommendedLblConstraints = [
+            recommendedLbl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            recommendedLbl.heightAnchor.constraint(equalToConstant: 15),
+            recommendedLbl.bottomAnchor.constraint(equalTo: sleepPhaseView.topAnchor, constant: -20)
+        ]
+        
         let inerpretationLblConstraints = [
             inerpretationLbl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            inerpretationLbl.heightAnchor.constraint(equalToConstant: 15),
             inerpretationLbl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
         ]
         
@@ -186,58 +232,67 @@ class MainVC: UIViewController {
             diaryBtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             diaryBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             diaryBtn.topAnchor.constraint(equalTo: lastDiaryText.bottomAnchor, constant: 15),
-            diaryBtn.heightAnchor.constraint(equalToConstant: 40)
+            diaryBtn.heightAnchor.constraint(equalToConstant: 50)
         ]
         
         let interpreterBtnConstraints = [
-            interpreterBtn.topAnchor.constraint(equalTo: diaryBtn.bottomAnchor, constant: 15),
-            interpreterBtn.leadingAnchor.constraint(equalTo: diaryBtn.leadingAnchor),
-            interpreterBtn.widthAnchor.constraint(equalTo: diaryBtn.widthAnchor, multiplier: 0.5, constant: -20),
-            interpreterBtn.heightAnchor.constraint(equalTo: diaryBtn.widthAnchor, multiplier: 0.6)
+            interpreterBtn.topAnchor.constraint(equalTo: diaryBtn.bottomAnchor, constant: 5),
+            interpreterBtn.leadingAnchor.constraint(equalTo: diaryBtn.leadingAnchor, constant: -10),
+            interpreterBtn.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -5),
+            interpreterBtn.bottomAnchor.constraint(equalTo: recommendedLbl.topAnchor, constant: -5)
         ]
         
         let phaseCalculateBtnConstraints = [
-            phaseCalculateBtn.trailingAnchor.constraint(equalTo: diaryBtn.trailingAnchor),
+            phaseCalculateBtn.trailingAnchor.constraint(equalTo: diaryBtn.trailingAnchor, constant: 10),
             phaseCalculateBtn.topAnchor.constraint(equalTo: interpreterBtn.topAnchor),
-            phaseCalculateBtn.heightAnchor.constraint(equalTo: interpreterBtn.heightAnchor),
-            phaseCalculateBtn.widthAnchor.constraint(equalTo: interpreterBtn.widthAnchor)
+            phaseCalculateBtn.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 5),
+            phaseCalculateBtn.bottomAnchor.constraint(equalTo: interpreterBtn.bottomAnchor)
         ]
         
-        let recommendedLblConstraints = [
-            recommendedLbl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            recommendedLbl.topAnchor.constraint(equalTo: phaseCalculateBtn.bottomAnchor, constant: 20)
-        ]
         
-        let sleepPhaseViewConstraints = [
-            sleepPhaseView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            sleepPhaseView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            sleepPhaseView.topAnchor.constraint(equalTo: recommendedLbl.bottomAnchor, constant: 20),
-            sleepPhaseView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -130)
-            
-        ]
+        
+        
         
         NSLayoutConstraint.activate(backgroundImageViewConstraints)
+        NSLayoutConstraint.activate(sleepPhaseViewConstraints)
+        NSLayoutConstraint.activate(recommendedLblConstraints)
+        
+        
         NSLayoutConstraint.activate(inerpretationLblConstraints)
         NSLayoutConstraint.activate(lastDateLblConstraints)
         NSLayoutConstraint.activate(lastDiaryTextConstraints)
         NSLayoutConstraint.activate(diaryBtnConstraints)
         NSLayoutConstraint.activate(interpreterBtnConstraints)
         NSLayoutConstraint.activate(phaseCalculateBtnConstraints)
-        NSLayoutConstraint.activate(recommendedLblConstraints)
-        NSLayoutConstraint.activate(sleepPhaseViewConstraints)
+        
+        
+        
     }
 
     
     //MARK: - Configure nav bar
     private func configureNavBar() {
         // title
-        title = "Intdreamer"
+        let titleLbl: UILabel = {
+            let lbl = UILabel()
+            lbl.text = "Menu"
+            lbl.textColor = UIColor(named: "tintColor")
+            lbl.font = UIFont(name: "Marker Felt", size: 40)
+            return lbl
+        }()
+        navigationItem.titleView = titleLbl
         // tint
         navigationController?.navigationBar.tintColor = .black
+        
+        
         // left btn
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark.circle"), style: .plain, target: self, action: #selector(didPressInfoBtn))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "User"), style: .plain, target: self, action: #selector(didPressInfoBtn))
         // right btn
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "circle.circle"), style: .plain, target: nil, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Daily"), style: .plain, target: self, action: #selector(didPressDailyBtn))
+        // back btn
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationController?.navigationBar.backIndicatorImage = UIImage(named: "Back")
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "Back")
     }
 
 }

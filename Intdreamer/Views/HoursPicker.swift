@@ -28,16 +28,15 @@ class HoursPicker: UIView {
     //MARK: - UI Objects
     private let titleLbl: UILabel = {
         let lbl = UILabel()
-        lbl.font = .systemFont(ofSize: 23, weight: .medium)
-        lbl.textColor = .black
+        lbl.font = UIFont(name: "Marker Felt", size: 24)
+        lbl.textColor = .white
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
     
     private let pickerView: UIPickerView = {
         let picker = UIPickerView()
-        picker.backgroundColor = .black.withAlphaComponent(0.2)
-        picker.layer.cornerRadius = 15
+        picker.backgroundColor = .clear
         picker.translatesAutoresizingMaskIntoConstraints = false
         return picker
     }()
@@ -64,10 +63,9 @@ class HoursPicker: UIView {
         // apply constraints
         applyConstraints()
         // settings
-        backgroundColor = .black.withAlphaComponent(0.2)
-        layer.cornerRadius = 20
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.black.cgColor
+        backgroundColor = UIColor(named: "tintColor")!.withAlphaComponent(0.7)
+        layer.borderWidth = 0.3
+        layer.borderColor = UIColor.white.cgColor
         translatesAutoresizingMaskIntoConstraints = false
         // apply delegates
         applyPickerDelegates()
@@ -131,9 +129,9 @@ extension HoursPicker: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         let lbl = UILabel()
         lbl.text = pickerData[row]
-        lbl.textColor = .black
+        lbl.textColor = .white
         lbl.textAlignment = .center
-        lbl.font = .systemFont(ofSize: 20, weight: .medium)
+        lbl.font = UIFont(name: "Marker Felt", size: 24)
         return lbl
     }
     

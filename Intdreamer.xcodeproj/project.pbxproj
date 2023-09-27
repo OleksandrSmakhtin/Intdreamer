@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		440213482AC4229C00F12546 /* LoadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440213472AC4229C00F12546 /* LoadVC.swift */; };
+		4402134A2AC42A1200F12546 /* OnboardingViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440213492AC42A1200F12546 /* OnboardingViewViewModel.swift */; };
 		446593662AA7591600F9117F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446593652AA7591600F9117F /* AppDelegate.swift */; };
 		446593682AA7591600F9117F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446593672AA7591600F9117F /* SceneDelegate.swift */; };
 		4465936A2AA7591600F9117F /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446593692AA7591600F9117F /* MainVC.swift */; };
@@ -26,9 +28,20 @@
 		44E95DF72AAA1DF700C14BAF /* PhaseViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E95DF62AAA1DF700C14BAF /* PhaseViewViewModel.swift */; };
 		44E95DF92AAB3EFD00C14BAF /* HoursPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E95DF82AAB3EFD00C14BAF /* HoursPicker.swift */; };
 		44E95DFB2AAB716200C14BAF /* MainViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E95DFA2AAB716200C14BAF /* MainViewViewModel.swift */; };
+		44E95DFD2AAB7B0700C14BAF /* DailyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E95DFC2AAB7B0700C14BAF /* DailyVC.swift */; };
+		44E95E122AAF09F600C14BAF /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E95E112AAF09F600C14BAF /* Question.swift */; };
+		44E95E142AAF0EDC00C14BAF /* InterpreterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E95E132AAF0EDC00C14BAF /* InterpreterVC.swift */; };
+		44E95E162AAF106100C14BAF /* InterpreterViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E95E152AAF106100C14BAF /* InterpreterViewViewModel.swift */; };
+		44E95E182AAF134C00C14BAF /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E95E172AAF134C00C14BAF /* QuestionView.swift */; };
+		44E95E1A2AAF1A7100C14BAF /* OptionBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E95E192AAF1A7100C14BAF /* OptionBtn.swift */; };
+		44E95E1C2AAF3D4000C14BAF /* InterpreterLoadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E95E1B2AAF3D4000C14BAF /* InterpreterLoadVC.swift */; };
+		44E95E1E2AB08A3600C14BAF /* DescriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E95E1D2AB08A3600C14BAF /* DescriptionVC.swift */; };
+		44E95E202AB2F65500C14BAF /* OnboardingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E95E1F2AB2F65500C14BAF /* OnboardingVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		440213472AC4229C00F12546 /* LoadVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadVC.swift; sourceTree = "<group>"; };
+		440213492AC42A1200F12546 /* OnboardingViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewViewModel.swift; sourceTree = "<group>"; };
 		446593622AA7591600F9117F /* Intdreamer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Intdreamer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		446593652AA7591600F9117F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		446593672AA7591600F9117F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -50,6 +63,15 @@
 		44E95DF62AAA1DF700C14BAF /* PhaseViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhaseViewViewModel.swift; sourceTree = "<group>"; };
 		44E95DF82AAB3EFD00C14BAF /* HoursPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoursPicker.swift; sourceTree = "<group>"; };
 		44E95DFA2AAB716200C14BAF /* MainViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewViewModel.swift; sourceTree = "<group>"; };
+		44E95DFC2AAB7B0700C14BAF /* DailyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyVC.swift; sourceTree = "<group>"; };
+		44E95E112AAF09F600C14BAF /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		44E95E132AAF0EDC00C14BAF /* InterpreterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpreterVC.swift; sourceTree = "<group>"; };
+		44E95E152AAF106100C14BAF /* InterpreterViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpreterViewViewModel.swift; sourceTree = "<group>"; };
+		44E95E172AAF134C00C14BAF /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
+		44E95E192AAF1A7100C14BAF /* OptionBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionBtn.swift; sourceTree = "<group>"; };
+		44E95E1B2AAF3D4000C14BAF /* InterpreterLoadVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterpreterLoadVC.swift; sourceTree = "<group>"; };
+		44E95E1D2AB08A3600C14BAF /* DescriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionVC.swift; sourceTree = "<group>"; };
+		44E95E1F2AB2F65500C14BAF /* OnboardingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +122,12 @@
 				446593802AA9D15000F9117F /* InfoVC.swift */,
 				446593842AA9E49300F9117F /* DiaryVC.swift */,
 				44E95DF22AAA110600C14BAF /* PhaseVC.swift */,
+				44E95DFC2AAB7B0700C14BAF /* DailyVC.swift */,
+				44E95E132AAF0EDC00C14BAF /* InterpreterVC.swift */,
+				44E95E1B2AAF3D4000C14BAF /* InterpreterLoadVC.swift */,
+				44E95E1D2AB08A3600C14BAF /* DescriptionVC.swift */,
+				44E95E1F2AB2F65500C14BAF /* OnboardingVC.swift */,
+				440213472AC4229C00F12546 /* LoadVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -110,6 +138,8 @@
 				446593882AA9E6FE00F9117F /* DiaryViewViewModel.swift */,
 				44E95DF62AAA1DF700C14BAF /* PhaseViewViewModel.swift */,
 				44E95DFA2AAB716200C14BAF /* MainViewViewModel.swift */,
+				44E95E152AAF106100C14BAF /* InterpreterViewViewModel.swift */,
+				440213492AC42A1200F12546 /* OnboardingViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -121,6 +151,8 @@
 				446593822AA9DB4800F9117F /* CustomLableView.swift */,
 				44E95DF02AAA069700C14BAF /* DiaryTableCell.swift */,
 				44E95DF82AAB3EFD00C14BAF /* HoursPicker.swift */,
+				44E95E172AAF134C00C14BAF /* QuestionView.swift */,
+				44E95E192AAF1A7100C14BAF /* OptionBtn.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -130,6 +162,7 @@
 			children = (
 				4465938C2AA9ED8E00F9117F /* CoreDataModel.xcdatamodeld */,
 				446593922AA9F21800F9117F /* InterpretationModel.swift */,
+				44E95E112AAF09F600C14BAF /* Question.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -226,18 +259,29 @@
 			files = (
 				44E95DF32AAA110600C14BAF /* PhaseVC.swift in Sources */,
 				44E95DF12AAA069700C14BAF /* DiaryTableCell.swift in Sources */,
+				440213482AC4229C00F12546 /* LoadVC.swift in Sources */,
+				44E95DFD2AAB7B0700C14BAF /* DailyVC.swift in Sources */,
+				44E95E142AAF0EDC00C14BAF /* InterpreterVC.swift in Sources */,
+				44E95E1E2AB08A3600C14BAF /* DescriptionVC.swift in Sources */,
 				44E95DFB2AAB716200C14BAF /* MainViewViewModel.swift in Sources */,
 				4465937F2AA7777600F9117F /* SleepPhaseView.swift in Sources */,
 				4465936A2AA7591600F9117F /* MainVC.swift in Sources */,
+				44E95E1C2AAF3D4000C14BAF /* InterpreterLoadVC.swift in Sources */,
 				446593912AA9EE3700F9117F /* DatabaseManager.swift in Sources */,
+				44E95E162AAF106100C14BAF /* InterpreterViewViewModel.swift in Sources */,
 				446593932AA9F21800F9117F /* InterpretationModel.swift in Sources */,
+				44E95E1A2AAF1A7100C14BAF /* OptionBtn.swift in Sources */,
+				4402134A2AC42A1200F12546 /* OnboardingViewViewModel.swift in Sources */,
 				446593662AA7591600F9117F /* AppDelegate.swift in Sources */,
 				446593892AA9E6FE00F9117F /* DiaryViewViewModel.swift in Sources */,
 				446593682AA7591600F9117F /* SceneDelegate.swift in Sources */,
 				446593852AA9E49300F9117F /* DiaryVC.swift in Sources */,
 				4465938E2AA9ED8E00F9117F /* CoreDataModel.xcdatamodeld in Sources */,
+				44E95E122AAF09F600C14BAF /* Question.swift in Sources */,
+				44E95E202AB2F65500C14BAF /* OnboardingVC.swift in Sources */,
 				44E95DF92AAB3EFD00C14BAF /* HoursPicker.swift in Sources */,
 				44E95DF52AAA198100C14BAF /* Constants.swift in Sources */,
+				44E95E182AAF134C00C14BAF /* QuestionView.swift in Sources */,
 				446593832AA9DB4800F9117F /* CustomLableView.swift in Sources */,
 				44E95DF72AAA1DF700C14BAF /* PhaseViewViewModel.swift in Sources */,
 				446593812AA9D15000F9117F /* InfoVC.swift in Sources */,
@@ -382,6 +426,7 @@
 				DEVELOPMENT_TEAM = 3PN53MQP93;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Intdreamer/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Needs Camera Access to Take User's Avatar";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -409,6 +454,7 @@
 				DEVELOPMENT_TEAM = 3PN53MQP93;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Intdreamer/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Needs Camera Access to Take User's Avatar";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

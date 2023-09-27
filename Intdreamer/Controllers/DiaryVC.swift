@@ -25,15 +25,6 @@ class DiaryVC: UIViewController {
         return tableView
     }()
     
-    private let diaryLbl: UILabel = {
-        let lbl = UILabel()
-        lbl.text = "Diary"
-        lbl.font = UIFont.systemFont(ofSize: 24, weight: .medium)
-        lbl.textColor = .black
-        lbl.translatesAutoresizingMaskIntoConstraints = false
-        return lbl
-    }()
-    
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "bg")
@@ -74,6 +65,20 @@ class DiaryVC: UIViewController {
     //MARK: - Bind views
     private func bindViews() {
         viewModel.$interpretations.sink { [weak self] interpretations in
+            // title
+            let titleLbl: UILabel = {
+                let lbl = UILabel()
+                lbl.text = "Diary"
+                lbl.textColor = UIColor(named: "tintColor")
+                lbl.font = UIFont(name: "Marker Felt", size: 30)
+                return lbl
+            }()
+            self?.navigationItem.titleView = titleLbl
+            if interpretations.isEmpty {
+                titleLbl.text = "Diary is empty"
+            } else {
+                titleLbl.text = "Diary"
+            }
             DispatchQueue.main.async {
                 self?.diaryTable.reloadData()
             }
@@ -84,7 +89,6 @@ class DiaryVC: UIViewController {
     //MARK: - Add subviews
     private func addSubviews() {
         view.addSubview(backgroundImageView)
-        view.addSubview(diaryLbl)
         view.addSubview(diaryTable)
     }
     
@@ -97,38 +101,31 @@ class DiaryVC: UIViewController {
             backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor)
         ]
         
-        let diaryLblConstraints = [
-            diaryLbl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            diaryLbl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30)
-        ]
-        
         let diaryTableConstraints = [
-            diaryTable.topAnchor.constraint(equalTo: diaryLbl.bottomAnchor, constant: 30),
+            diaryTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
             diaryTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             diaryTable.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             diaryTable.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ]
         
         NSLayoutConstraint.activate(backgroundImageViewConstraints)
-        NSLayoutConstraint.activate(diaryLblConstraints)
         NSLayoutConstraint.activate(diaryTableConstraints)
     }
     
     //MARK: - Configure nav bar
     private func configureNavBar() {
-        // title view
-        let lbl: UILabel = {
+        // title
+        let titleLbl: UILabel = {
             let lbl = UILabel()
-            lbl.text = "Intdreamer"
-            lbl.textColor = .black
-            lbl.font = UIFont.systemFont(ofSize: 25)
+            lbl.text = "Diary"
+            lbl.textColor = UIColor(named: "tintColor")
+            lbl.font = UIFont(name: "Marker Felt", size: 40)
             return lbl
         }()
+        navigationItem.titleView = titleLbl
         
         // right btn
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark.circle"), style: .plain, target: self, action: #selector(didPressInfoBtn))
-        
-        navigationItem.titleView = lbl
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "HowToUse"), style: .plain, target: self, action: #selector(didPressInfoBtn))
     }
 
 }
@@ -150,7 +147,7 @@ extension DiaryVC: UITableViewDelegate, UITableViewDataSource {
     // cell for row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DiaryTableCell.Identifier) as? DiaryTableCell else { return UITableViewCell()}
-        let model = viewModel.interpretations[indexPath.row]
+        let model = viewModel.interpretations.reversed()[indexPath.row]
         cell.configure(with: model)
         return cell
     }

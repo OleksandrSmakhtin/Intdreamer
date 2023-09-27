@@ -15,8 +15,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //MARK: - Did finish launch
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
+        // app
+        configureApp()
+        
         return true
     }
+    
+    
+    
+    
+    //MARK: - Configure app
+    private func configureApp() {
+        let beenLaunched = UserDefaults.standard.bool(forKey: "BeenLaunched")
+        
+        if !beenLaunched {
+            UserDefaults.standard.set(true, forKey: "BeenLaunched")
+            let date = Date(timeIntervalSince1970: 56)
+            UserDefaults.standard.setValue(date, forKey: "lastOpenedDailyBoxScreen")
+            UserDefaults.standard.synchronize()
+            print("First launch")
+        }
+    }
+    
+    
+    
 
     // MARK: UISceneSession Lifecycle
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

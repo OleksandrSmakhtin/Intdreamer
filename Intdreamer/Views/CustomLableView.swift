@@ -16,20 +16,28 @@ enum TextStyle {
 class CustomLableView: UIView {
 
     //MARK: - UI Objects
+    
+    private let titleLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "Your interpretation"
+        lbl.font = UIFont(name: "Marker Felt", size: 24)
+        lbl.textColor = .white
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
     private let dateLbl: UILabel = {
         let lbl = UILabel()
-        lbl.text = "05.06.2023"
-        lbl.font = UIFont.systemFont(ofSize: 24, weight: .medium)
-        lbl.textColor = .black
+        lbl.font = UIFont(name: "Marker Felt", size: 24)
+        lbl.textColor = .white
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
     
     private let descriptionLbl: UILabel = {
         let lbl = UILabel()
-        lbl.text = "Based on your neutral morning feeling, it is possible that the emotions experienced in your dream were not particularly intense. This could suggest that the themes and events in your dream may not have had a significant impact on your overall mood upon waking. It is important to note that dreams can vary in emotional intensity and may not always directly correlate with our waking emotions. In analyzing the dream based on the artifacts you provided, it is difficult to pinpoint the exact interpretation without more specific details. However, it is possible that the dream signifies a sense of neutrality or contentment in your waking life, as opposed to an underlying stress or concern. It could be a reflection of a balanced and stable mindset, where your"
         lbl.textColor = .white.withAlphaComponent(0.7)
-        lbl.font = UIFont.systemFont(ofSize: 20)
+        lbl.font = UIFont(name: "Optima", size: 24)
         lbl.adjustsFontSizeToFitWidth = true
         //lbl.minimumScaleFactor = 0.5
         lbl.numberOfLines = 0
@@ -45,10 +53,9 @@ class CustomLableView: UIView {
         // apply constraints
         applyConstraints(for: type)
         // settings
-        backgroundColor = .black.withAlphaComponent(0.2)
-        layer.cornerRadius = 20
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.black.cgColor
+        backgroundColor = UIColor(named: "tintColor")!.withAlphaComponent(0.5)
+        layer.borderWidth = 0.3
+        layer.borderColor = UIColor.white.cgColor
         translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -61,7 +68,8 @@ class CustomLableView: UIView {
             addSubview(dateLbl)
             addSubview(descriptionLbl)
         case .interpretation:
-            Void()
+            addSubview(titleLbl)
+            addSubview(descriptionLbl)
         }
     }
     
@@ -84,7 +92,7 @@ class CustomLableView: UIView {
             
             let descriptionLblConstraints = [
                 descriptionLbl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-                descriptionLbl.topAnchor.constraint(equalTo: dateLbl.bottomAnchor, constant: 10),
+                descriptionLbl.topAnchor.constraint(equalTo: dateLbl.bottomAnchor, constant: 20),
                 descriptionLbl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
                 descriptionLbl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
             ]
@@ -92,7 +100,19 @@ class CustomLableView: UIView {
             NSLayoutConstraint.activate(dateLblConstraints)
             NSLayoutConstraint.activate(descriptionLblConstraints)
         case .interpretation:
-            Void()
+            let titleLblConstraints = [
+                titleLbl.centerXAnchor.constraint(equalTo: centerXAnchor),
+                titleLbl.topAnchor.constraint(equalTo: topAnchor, constant: 20)
+            ]
+            
+            let descriptionLblConstraints = [
+                descriptionLbl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+                descriptionLbl.topAnchor.constraint(equalTo: titleLbl.bottomAnchor, constant: 10),
+                descriptionLbl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+                descriptionLbl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5)
+            ]
+            NSLayoutConstraint.activate(titleLblConstraints)
+            NSLayoutConstraint.activate(descriptionLblConstraints)
         }
     }
     

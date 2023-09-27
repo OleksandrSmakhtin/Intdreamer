@@ -29,10 +29,7 @@ class PhaseVC: UIViewController {
     
     private let continueBtn: UIButton = {
         let btn = UIButton(type: .system)
-        btn.setTitle("Continue", for: .normal)
-        btn.tintColor = .white
-        btn.backgroundColor = .black
-        btn.layer.cornerRadius = 15
+        btn.setImage(UIImage(named: "Continue"), for: .normal)
         btn.addTarget(nil, action: #selector(didPressContinueBtn), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
@@ -41,19 +38,10 @@ class PhaseVC: UIViewController {
     private let descriptionLbl: UILabel = {
         let lbl = UILabel()
         lbl.text = K.descriptionStage
-        lbl.font = UIFont.systemFont(ofSize: 24, weight: .medium)
-        lbl.textColor = .black
+        lbl.font = UIFont(name: "Marker Felt", size: 24)
+        lbl.textColor = .white
         lbl.textAlignment = .center
         lbl.numberOfLines = 3
-        lbl.translatesAutoresizingMaskIntoConstraints = false
-        return lbl
-    }()
-    
-    private let sleepPhaseLbl: UILabel = {
-        let lbl = UILabel()
-        lbl.text = "Sleep Phase Calculator"
-        lbl.font = UIFont.systemFont(ofSize: 24, weight: .medium)
-        lbl.textColor = .black
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
@@ -68,6 +56,7 @@ class PhaseVC: UIViewController {
     
     //MARK: - Actions
     @objc private func didSaveBtn() {
+        print("DID SAVE BTN")
         viewModel.calculatePhase()
         navigationController?.popToRootViewController(animated: true)
     }
@@ -121,7 +110,7 @@ class PhaseVC: UIViewController {
             case .sleep:
                 self?.descriptionLbl.text = K.sleepStage
                 self?.hoursPicker = HoursPicker(frame: .zero, type: .sleepHours)
-                self?.continueBtn.setTitle("Save", for: .normal)
+                self?.continueBtn.setImage(UIImage(named: "Save"), for: .normal)
                 self?.continueBtn.removeTarget(nil, action: #selector(self?.didPressContinueBtn), for: .touchUpInside)
                 self?.continueBtn.addTarget(nil, action: #selector(self?.didSaveBtn), for: .touchUpInside)
             }
@@ -137,7 +126,6 @@ class PhaseVC: UIViewController {
     //MARK: - Add subviews
     private func addSubviews() {
         view.addSubview(backgroundImageView)
-        view.addSubview(sleepPhaseLbl)
         view.addSubview(descriptionLbl)
         view.addSubview(continueBtn)
         
@@ -163,15 +151,10 @@ class PhaseVC: UIViewController {
             backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor)
         ]
         
-        let sleepPhaseLblConstraints = [
-            sleepPhaseLbl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            sleepPhaseLbl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30)
-        ]
-        
         let descriptionLblConstraints = [
             descriptionLbl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             descriptionLbl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            descriptionLbl.topAnchor.constraint(equalTo: sleepPhaseLbl.bottomAnchor, constant: 30),
+            descriptionLbl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             descriptionLbl.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ]
         
@@ -182,7 +165,6 @@ class PhaseVC: UIViewController {
             continueBtn.heightAnchor.constraint(equalToConstant: 50)
         ]
         
-        NSLayoutConstraint.activate(sleepPhaseLblConstraints)
         NSLayoutConstraint.activate(backgroundImageViewConstraints)
         NSLayoutConstraint.activate(descriptionLblConstraints)
         NSLayoutConstraint.activate(continueBtnConstraints)
@@ -193,7 +175,7 @@ class PhaseVC: UIViewController {
                 customLblView!.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
                 customLblView!.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
                 customLblView!.topAnchor.constraint(equalTo: descriptionLbl.bottomAnchor, constant: 30),
-                customLblView!.bottomAnchor.constraint(equalTo: continueBtn.topAnchor, constant: -300)
+                customLblView!.bottomAnchor.constraint(equalTo: continueBtn.topAnchor, constant: -250)
             ]
             NSLayoutConstraint.activate(customLblViewConstraints)
             
@@ -226,19 +208,18 @@ class PhaseVC: UIViewController {
     
     //MARK: - Configure nav bar
     private func configureNavBar() {
-        // title view
-        let lbl: UILabel = {
+        // title
+        let titleLbl: UILabel = {
             let lbl = UILabel()
-            lbl.text = "Intdreamer"
-            lbl.textColor = .black
-            lbl.font = UIFont.systemFont(ofSize: 25)
+            lbl.text = "Sleep Phase Calculator"
+            lbl.numberOfLines = 0
+            lbl.textColor = UIColor(named: "tintColor")
+            lbl.font = UIFont(name: "Marker Felt", size: 23)
             return lbl
         }()
-        
+        navigationItem.titleView = titleLbl
         // right btn
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark.circle"), style: .plain, target: self, action: #selector(didPressInfoBtn))
-        
-        navigationItem.titleView = lbl
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "HowToUse"), style: .plain, target: self, action: #selector(didPressInfoBtn))
     }
 }
 

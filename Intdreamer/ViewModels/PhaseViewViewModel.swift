@@ -26,11 +26,12 @@ final class PhaseViewViewModel: ObservableObject {
         guard let sleepFloat = Float(sleepHours) else { return }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
-        
+        print("SLEEP FLOAT GUARD PASSED")
         guard let awakeDate = dateFormatter.date(from: awakeTime) else { return }
         let minutesOfSleep = Int(sleepFloat * 60)
-        
+        print("AWAKE GUARD PASSED")
         guard let asleepTime = Calendar.current.date(byAdding: .minute, value: -minutesOfSleep, to: awakeDate) else { return }
+        print("ASLEEP GUARD PASSED")
         let bedTime = dateFormatter.string(from: asleepTime)
         print(bedTime)
         saveSleepPhase(awake: awakeTime, asleep: bedTime, hours: sleepHours)
@@ -56,6 +57,7 @@ final class PhaseViewViewModel: ObservableObject {
     
     // save phase
     private func saveSleepPhase(awake: String, asleep: String, hours: String) {
+        print("SAVING")
         DatabaseManager.shared.saveSleepPhaseData(awake: awake, asleep: asleep, hours: hours).sink { [weak self] completion in
             if case .failure(let error) = completion {
                 print(error.localizedDescription)
