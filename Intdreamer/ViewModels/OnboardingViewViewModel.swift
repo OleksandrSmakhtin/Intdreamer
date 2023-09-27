@@ -12,7 +12,7 @@ import Combine
 final class OnboardingViewViewModel: ObservableObject {
     
     @Published var nickname = ""
-    @Published var avatar = UIImage(named: "AddPhoto")
+    @Published var avatar = UIImage(named: "photo")
     @Published var isOnboarded: Bool = false
     
     private var subsctiptions: Set<AnyCancellable> = []

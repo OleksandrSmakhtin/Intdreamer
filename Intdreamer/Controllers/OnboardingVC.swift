@@ -34,7 +34,7 @@ class OnboardingVC: UIViewController {
         textField.textColor = .white
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.white,
-            .font: UIFont(name: "Marker Felt", size: 18)
+            .font: UIFont(name: "Marker Felt", size: 18) as Any
         ]
         textField.autocorrectionType = .no
         textField.attributedPlaceholder = NSAttributedString(string: "Nick name", attributes: attributes)

@@ -32,6 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaults.standard.set(true, forKey: "BeenLaunched")
             let date = Date(timeIntervalSince1970: 56)
             UserDefaults.standard.setValue(date, forKey: "lastOpenedDailyBoxScreen")
+            UserDefaults.standard.setValue(0, forKey: "diaryPages")
+            UserDefaults.standard.setValue(0, forKey: "totalInt")
+            UserDefaults.standard.setValue(0, forKey: "totalPhase")
             UserDefaults.standard.synchronize()
             print("First launch")
         }

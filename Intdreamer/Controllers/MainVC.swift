@@ -112,8 +112,8 @@ class MainVC: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc private func didPressInfoBtn() {
-        let vc  = InfoVC()
+    @objc private func didPressProfileBtn() {
+        let vc  = ProfileVC()
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -286,7 +286,7 @@ class MainVC: UIViewController {
         
         
         // left btn
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "User"), style: .plain, target: self, action: #selector(didPressInfoBtn))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "User"), style: .plain, target: self, action: #selector(didPressProfileBtn))
         // right btn
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Daily"), style: .plain, target: self, action: #selector(didPressDailyBtn))
         // back btn

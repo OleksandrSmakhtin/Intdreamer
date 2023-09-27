@@ -10,6 +10,8 @@ import Foundation
 
 class K {
     
+    static let stats = ["Diary pages: ", "Total interpretations: ", "Total phase calculations: "]
+    
     static let descriptionStage = "Calculate the perfect time to sleep to be awake and get enough sleep every day!"
     static let descriptionStageText = "In order for dreams to be bright, and the body really rested at night, it is necessary to have an optimal amount of full sleep, consisting of 4-5 cycles of 1.5 hours. Take a little test to calculate your ideal time to fall asleep and wake up!"
     
