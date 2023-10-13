@@ -6,9 +6,19 @@
 //
 
 import UIKit
+import AVFoundation
+
+protocol ProfileViewDelegate: AnyObject {
+    func didChangeTextField(text: String)
+    func didTapOnAvatar()
+    func didSelectPrivacy()
+}
 
 class ProfileView: UIView {
 
+    //MARK: - Delegate
+    weak var delegate: ProfileViewDelegate?
+    
     //MARK: - UI Objects
     private lazy var statLbls = setStats()
     
@@ -22,6 +32,17 @@ class ProfileView: UIView {
         return stackView
     }()
     
+    private let privacyBtn: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.tintColor = .white
+        let attributedText = NSMutableAttributedString(string: "Privacy")
+        attributedText.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: "Privacy".count))
+        btn.addTarget(nil, action: #selector(didTapPrivacy), for: .touchUpInside)
+        btn.setAttributedTitle(attributedText, for: .normal)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
+    
     private let avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 40
@@ -29,6 +50,7 @@ class ProfileView: UIView {
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.isUserInteractionEnabled = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -40,6 +62,41 @@ class ProfileView: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    
+    private let nameField: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = .white.withAlphaComponent(0.2)
+        textField.layer.borderWidth = 3
+        textField.layer.borderColor = UIColor.white.withAlphaComponent(0.5).cgColor
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 50))
+        textField.leftViewMode = .always
+        textField.font = UIFont(name: "Marker Felt", size: 18)
+        textField.textColor = .white
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.white,
+            .font: UIFont(name: "Marker Felt", size: 18) as Any
+        ]
+        textField.autocorrectionType = .no
+        textField.attributedPlaceholder = NSAttributedString(string: "", attributes: attributes)
+        textField.tintColor = .white
+        textField.addTarget(nil, action: #selector(didChangeTextField), for: .editingChanged)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    
+    //MARK: - Actions
+    @objc private func didTapPrivacy() {
+        delegate?.didSelectPrivacy()
+    }
+    
+    @objc private func didPressOnAvatar() {
+        delegate?.didTapOnAvatar()
+    }
+    
+    @objc private func didChangeTextField() {
+        guard let text = nameField.text else { return }
+        delegate?.didChangeTextField(text: text)
+    }
     
     //MARK: - Init
     override init(frame: CGRect) {
@@ -61,7 +118,10 @@ class ProfileView: UIView {
     //MARK: - Add subviews
     private func addSubviews() {
         addSubview(avatarImageView)
+        avatarImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressOnAvatar)))
         addSubview(editAvatarImageView)
+        addSubview(nameField)
+        addSubview(privacyBtn)
         addSubview(statsStack)
         
     }
@@ -82,15 +142,29 @@ class ProfileView: UIView {
             editAvatarImageView.widthAnchor.constraint(equalToConstant: 30)
         ]
         
+        let nameFieldConstraints = [
+            nameField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
+            nameField.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 20),
+            nameField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
+            nameField.heightAnchor.constraint(equalToConstant: 40)
+        ]
+        
+        let privacyBtnConstraints = [
+            privacyBtn.centerXAnchor.constraint(equalTo: centerXAnchor),
+            privacyBtn.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
+        ]
+        
         let statsStackConstraints = [
             statsStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
             statsStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            statsStack.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 20),
-            statsStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
+            statsStack.topAnchor.constraint(equalTo: nameField.bottomAnchor, constant: 20),
+            statsStack.bottomAnchor.constraint(equalTo: privacyBtn.topAnchor, constant: -20)
         ]
         
         NSLayoutConstraint.activate(avatarImageViewConstraints)
         NSLayoutConstraint.activate(editAvatarImageViewConstraints)
+        NSLayoutConstraint.activate(nameFieldConstraints)
+        NSLayoutConstraint.activate(privacyBtnConstraints)
         NSLayoutConstraint.activate(statsStackConstraints)
     }
     
@@ -104,7 +178,7 @@ class ProfileView: UIView {
             case 0:
                 lbl.text = "\(stat)\(UserDefaults.standard.integer(forKey: "diaryPages"))"
             case 1:
-                lbl.text = "\(stat)\(UserDefaults.standard.integer(forKey: "totalInt"))"
+                lbl.text = "\(stat)\(UserDefaults.standard.integer(forKey: "dailyScore"))"
             case 2:
                 lbl.text = "\(stat)\(UserDefaults.standard.integer(forKey: "totalPhase"))"
             default:
@@ -120,9 +194,9 @@ class ProfileView: UIView {
     //MARK: - Configure user
     private func configureUserData() {
         // nickname
-//        if let nickname = UserDefaults.standard.string(forKey: "UserName") {
-//            nameField.text = nickname
-//        }
+        if let nickname = UserDefaults.standard.string(forKey: "nickname") {
+            nameField.text = nickname
+        }
         
         // avatar
         guard let data = UserDefaults.standard.data(forKey: "avatar") else {
@@ -130,6 +204,17 @@ class ProfileView: UIView {
             return }
         guard let avatarImage = UIImage(data: data) else { return }
         avatarImageView.image = avatarImage
+    }
+    
+    //MARK: - Change image
+    public func changeImage(on image: UIImage) {
+        avatarImageView.image = image
+    }
+    
+    //MARK: - Nickname count
+    public func getNicknameCount() -> Int {
+        guard let count = nameField.text?.count else { return 0 }
+        return count
     }
     
     //MARK: - Required init

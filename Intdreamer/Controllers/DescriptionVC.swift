@@ -69,6 +69,8 @@ class DescriptionVC: UIViewController {
     private func bindViews() {
         viewModel.$isSaved.sink { [weak self] state in
             if state {
+                let total = UserDefaults.standard.integer(forKey: "diaryPages")
+                UserDefaults.standard.setValue(total + 1, forKey: "diaryPages")
                 self?.navigationController?.popToRootViewController(animated: true)
             }
         }.store(in: &subscriptions)

@@ -7,6 +7,8 @@
 
 import UIKit
 import CoreData
+import AVFoundation
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,17 +16,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     //MARK: - Did finish launch
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
         // app
         configureApp()
+        // fire
+        setupFirebase()
         
         return true
     }
     
     
     
+    //MARK: - Firebase
+    private func setupFirebase() {
+        FirebaseApp.configure()
+    }
     
-    //MARK: - Configure app
+    
+    //MARK: - Setup app
     private func configureApp() {
         let beenLaunched = UserDefaults.standard.bool(forKey: "BeenLaunched")
         
@@ -33,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let date = Date(timeIntervalSince1970: 56)
             UserDefaults.standard.setValue(date, forKey: "lastOpenedDailyBoxScreen")
             UserDefaults.standard.setValue(0, forKey: "diaryPages")
-            UserDefaults.standard.setValue(0, forKey: "totalInt")
+            UserDefaults.standard.setValue(0, forKey: "dailyScore")
             UserDefaults.standard.setValue(0, forKey: "totalPhase")
             UserDefaults.standard.synchronize()
             print("First launch")

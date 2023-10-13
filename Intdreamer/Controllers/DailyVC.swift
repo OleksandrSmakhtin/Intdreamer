@@ -59,6 +59,8 @@ class DailyVC: UIViewController {
         
         let currentDate = Date()
         UserDefaults.standard.set(currentDate, forKey: "lastOpenedDailyBoxScreen")
+        let score = UserDefaults.standard.integer(forKey: "dailyScore")
+        UserDefaults.standard.setValue(score + 1, forKey: "dailyScore")
         boxImageView.isUserInteractionEnabled = false
     }
     

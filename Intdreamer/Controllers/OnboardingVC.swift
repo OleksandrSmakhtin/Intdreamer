@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import AVFoundation
 
 class OnboardingVC: UIViewController {
     
@@ -17,8 +18,10 @@ class OnboardingVC: UIViewController {
     //MARK: - UI Objects
     private let addPhotoImageView: UIImageView = {
         let imageView = UIImageView()
-        //imageView.image = UIImage(named: "AddPhoto")
-        imageView.contentMode = .scaleAspectFit
+        imageView.isUserInteractionEnabled = true
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 50
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -71,6 +74,10 @@ class OnboardingVC: UIViewController {
     }()
     
     //MARK: - Actions
+    @objc private func didPressOnAvatar() {
+        chooseAvatar()
+    }
+    
     @objc private func didPressContinue() {
         viewModel.saveDetails()
     }
@@ -120,6 +127,7 @@ class OnboardingVC: UIViewController {
         view.addSubview(onboardingView)
         view.addSubview(nameField)
         view.addSubview(addPhotoImageView)
+        addPhotoImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressOnAvatar)))
         view.addSubview(continueBtn)
     }
     
@@ -149,7 +157,8 @@ class OnboardingVC: UIViewController {
         let addPhotoImageViewConstraints = [
             addPhotoImageView.topAnchor.constraint(equalTo: onboardingView.topAnchor, constant: 30),
             addPhotoImageView.centerXAnchor.constraint(equalTo: onboardingView.centerXAnchor),
-            addPhotoImageView.bottomAnchor.constraint(equalTo: nameField.topAnchor, constant: -30)
+            addPhotoImageView.heightAnchor.constraint(equalToConstant: 100),
+            addPhotoImageView.widthAnchor.constraint(equalToConstant: 100)
         ]
         
         let continueBtnConstraints = [
@@ -165,6 +174,69 @@ class OnboardingVC: UIViewController {
         NSLayoutConstraint.activate(continueBtnConstraints)
     }
     
+    
+    //MARK: - Choose avatar
+    private func chooseAvatar() {
+        // picker
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        
+        // alert
+        let alert = UIAlertController(title: "Choose source", message: nil, preferredStyle: .actionSheet)
+        // camera action
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { [weak self] _ in
+            AVCaptureDevice.requestAccess(for: .video) { isAllowed in
+                if isAllowed {
+                    DispatchQueue.main.async {
+                        imagePicker.sourceType = .camera
+                        imagePicker.allowsEditing = true
+                        self?.present(imagePicker, animated: true, completion: nil)
+                    }
+                }
+            }
+        }
+        
+        // gallery action
+        let galleryAction = UIAlertAction(title: "Gallery", style: .default) { [weak self] _ in
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.allowsEditing = true
+            self?.present(imagePicker, animated: true)
+        }
+        
+        // cancel
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        // request
+        alert.addAction(cameraAction)
+        alert.addAction(galleryAction)
+        alert.addAction(cancelAction)
+        
+        let popOver = alert.popoverPresentationController
+        popOver?.sourceView = self.view
+        popOver?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.minY, width: 0, height: 0)
+        popOver?.permittedArrowDirections = .any
+        
+        self.present(alert, animated: true)
+    }
+    
+    //MARK: - Check camera
+    private func isCameraAuthorized() -> Bool{
+        let status = AVCaptureDevice.authorizationStatus(for: .video)
+        switch status {
+        case .authorized:
+            return true
+        case .notDetermined:
+            return false
+        case .denied, .restricted:
+            return false
+        default:
+            return false
+        }
+    }
+    
+    private func requestCameraAuthorization() {
+        AVCaptureDevice.requestAccess(for: .video) { _ in }
+    }
 
     //MARK: - Configure nav bar
     private func configureNavBar() {
@@ -178,5 +250,23 @@ class OnboardingVC: UIViewController {
         }()
         navigationItem.titleView = titleLbl
         navigationItem.hidesBackButton = true
+    }
+}
+
+
+
+//MARK: - PHPickerViewControllerDelegate
+extension OnboardingVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    // did finish picking
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            viewModel.avatar = pickedImage
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+
+    // did cancel
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }

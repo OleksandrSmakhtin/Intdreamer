@@ -35,6 +35,8 @@ final class PhaseViewViewModel: ObservableObject {
         let bedTime = dateFormatter.string(from: asleepTime)
         print(bedTime)
         saveSleepPhase(awake: awakeTime, asleep: bedTime, hours: sleepHours)
+        let total = UserDefaults.standard.integer(forKey: "totalPhase")
+        UserDefaults.standard.setValue(total + 1, forKey: "totalPhase")
     }
     
     

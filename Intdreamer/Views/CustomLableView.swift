@@ -28,10 +28,33 @@ class CustomLableView: UIView {
     
     private let dateLbl: UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont(name: "Marker Felt", size: 24)
+        lbl.font = UIFont(name: "Marker Felt", size: 22)
         lbl.textColor = .white
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
+    }()
+    
+    private let nameLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.font = UIFont(name: "Marker Felt", size: 22)
+        lbl.textColor = .white
+        lbl.text = UserDefaults.standard.string(forKey: "nickname")
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
+    private let avatarImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.cornerRadius = 30
+        imageView.layer.borderWidth = 0.3
+        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        let data = UserDefaults.standard.data(forKey: "avatar")
+        imageView.image = UIImage(data: data!)
+        imageView.isUserInteractionEnabled = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
     private let descriptionLbl: UILabel = {
@@ -65,7 +88,9 @@ class CustomLableView: UIView {
         case .description:
             addSubview(descriptionLbl)
         case .diary:
+            addSubview(avatarImageView)
             addSubview(dateLbl)
+            addSubview(nameLbl)
             addSubview(descriptionLbl)
         case .interpretation:
             addSubview(titleLbl)
@@ -85,19 +110,33 @@ class CustomLableView: UIView {
             ]
             NSLayoutConstraint.activate(descriptionLblConstraints)
         case .diary:
+            let avatarImageViewConstraints = [
+                avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+                avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+                avatarImageView.heightAnchor.constraint(equalToConstant: 60),
+                avatarImageView.widthAnchor.constraint(equalToConstant: 60)
+            ]
+            
             let dateLblConstraints = [
-                dateLbl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-                dateLbl.topAnchor.constraint(equalTo: topAnchor, constant: 20)
+                dateLbl.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 10),
+                dateLbl.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor)
+            ]
+            
+            let nameLblConstraints = [
+                nameLbl.leadingAnchor.constraint(equalTo: dateLbl.leadingAnchor),
+                nameLbl.bottomAnchor.constraint(equalTo: dateLbl.topAnchor, constant: -10)
             ]
             
             let descriptionLblConstraints = [
                 descriptionLbl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-                descriptionLbl.topAnchor.constraint(equalTo: dateLbl.bottomAnchor, constant: 20),
+                descriptionLbl.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 20),
                 descriptionLbl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
                 descriptionLbl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
             ]
             
+            NSLayoutConstraint.activate(avatarImageViewConstraints)
             NSLayoutConstraint.activate(dateLblConstraints)
+            NSLayoutConstraint.activate(nameLblConstraints)
             NSLayoutConstraint.activate(descriptionLblConstraints)
         case .interpretation:
             let titleLblConstraints = [
